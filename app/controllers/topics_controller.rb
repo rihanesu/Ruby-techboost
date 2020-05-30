@@ -18,9 +18,15 @@ class TopicsController < ApplicationController
     end
   end
   
-  private
+  def show
+    @topic = Topic.includes(:user).find(params[:id])
+    @comments = @topic.comments
+    @comment = Comment.new
+  end
+  
+  
+private
   def topic_params
     params.require(:topic).permit(:image, :description)
   end
-  
 end
